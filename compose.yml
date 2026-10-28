@@ -1,0 +1,94 @@
+name: retro
+
+services:
+  romm:
+    image: rommapp/romm:5.4.1
+    container_name: romm
+    restart: unless-stopped
+    user: ${PUID}:${PGID}
+    environment:
+      TZ: ${TZ}
+      DB_HOST: romm-db
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWD: ${DB_PASSWD:?run make init}
+      ROMM_AUTH_SECRET_KEY: ${ROMM_AUTH_SECRET_KEY:?run make init}
+      SCREENSCRAPER_USER: ${SCREENSCRAPER_USER}
+      SCREENSCRAPER_PASSWORD: ${SCREENSCRAPER_PASSWORD}
+      IGDB_CLIENT_ID: ${IGDB_CLIENT_ID}
+      IGDB_CLIENT_SECRET: ${IGDB_CLIENT_SECRET}
+      MOBYGAMES_API_KEY: ${MOBYGAMES_API_KEY}
+      STEAMGRIDDB_API_KEY: ${STEAMGRIDDB_API_KEY}
+      RETROACHIEVEMENTS_API_KEY: ${RETROACHIEVEMENTS_API_KEY}
+      HASHEOUS_API_ENABLED: ${HASHEOUS_API_ENABLED}
+      LAUNCHBOX_API_ENABLED: ${LAUNCHBOX_API_ENABLED}
+      PLAYMATCH_API_ENABLED: ${PLAYMATCH_API_ENABLED}
+    volumes:
+      - ${LIBRARY_PATH}:/romm/library
+      - ${DATA_PATH}/romm/resources:/romm/resources
+      - ${DATA_PATH}/romm/assets:/romm/assets
+      - ${DATA_PATH}/romm/config:/romm/config
+      - ${DATA_PATH}/romm/redis:/redis-data
+    ports:
+      - ${ROMM_PORT}:8080
+    depends_on:
+      romm-db:
+        condition: service_healthy
+        restart: true
+
+  romm-db:
+    image: mariadb:11.8.9
+    container_name: romm-db
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWD:?run make init}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWD:?run make init}
+    volumes:
+      - ${DATA_PATH}/mariadb:/var/lib/mysql
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  gluetun:
+    image: qmcgaw/gluetun:v3.41.3
+    container_name: gluetun
+    profiles: [minerva]
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      TZ: ${TZ}
+      VPN_SERVICE_PROVIDER: ${VPN_SERVICE_PROVIDER}
+      VPN_TYPE: ${VPN_TYPE}
+      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY}
+      WIREGUARD_ADDRESSES: ${WIREGUARD_ADDRESSES}
+      SERVER_COUNTRIES: ${SERVER_COUNTRIES}
+    volumes:
+      - ${DATA_PATH}/gluetun:/gluetun
+    ports:
+      - ${MINERVA_PORT}:8080
+
+  minerva-helper:
+    image: ghcr.io/pawelwywiol/minerva-helper-web-app:${MINERVA_VERSION}
+    container_name: minerva-helper
+    profiles: [minerva]
+    restart: unless-stopped
+    user: ${PUID}:${PGID}
+    network_mode: service:gluetun
+    environment:
+      TZ: ${TZ}
+    volumes:
+      - ${LIBRARY_PATH}:/library
+      - ${DATA_PATH}/minerva:/data
+    depends_on:
+      gluetun:
+        condition: service_healthy
+        restart: true
