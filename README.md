@@ -44,6 +44,12 @@ ${DATA_PATH}/
 
 `config/romm/config.yml` maps ES-DE folder names to RomM platform slugs where they differ. `make init` copies it to `${DATA_PATH}/romm/config/` once; edit the copy there.
 
+## Guides
+
+- [Library disk](docs/storage.md)
+- [ES-DE on the host](docs/es-de.md)
+- [Streaming with Sunshine and Moonlight](docs/streaming.md)
+
 ## Commands
 
 | Command        | Action                                     |
