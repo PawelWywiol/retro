@@ -29,12 +29,29 @@ Use the `wlr` capture method; it can also capture a virtual output, so the clien
 
 ```sh
 hyprctl output create headless STREAM
-hyprctl eval 'hl.monitor({ output = "STREAM", mode = "1920x1080@120", position = "auto", scale = 1 })'
+hyprctl eval 'hl.monitor({ output = "STREAM", mode = "1920x1080@60", position = "auto", scale = 1 })'
 ```
 
-With a Lua config (e.g. Hyprland 0.56) `hyprctl keyword` is rejected; hyprlang configs use `hyprctl keyword monitor STREAM,1920x1080@120,auto,1`. Both are lost on restart; to keep the rule, add the same `hl.monitor(...)` line to `~/.config/hypr/monitors.lua`.
+With a Lua config (e.g. Hyprland 0.56) `hyprctl keyword` is rejected; hyprlang configs use `hyprctl keyword monitor STREAM,1920x1080@60,auto,1`.
 
-In Sunshine → Configuration → Audio/Video: `capture = wlr`, `output_name = STREAM`. Remove the output with `hyprctl output remove STREAM`.
+Both are lost on restart. To keep them with a Lua config:
+
+```lua
+-- ~/.config/hypr/monitors.lua
+hl.monitor({ output = "STREAM", mode = "1920x1080@60", position = "auto", scale = 1 })
+
+-- ~/.config/hypr/autostart.lua (Omarchy helper, runs once per Hyprland start)
+o.exec_on_start("hyprctl output create headless STREAM")
+```
+
+Match the mode to the client screen. Sunshine's `wlr` capture paces frames with the compositor only when the output refreshes at least 1.5× the stream rate (e.g. 120 Hz for a 60 fps stream); otherwise it captures on its own clock, which can repeat frames.
+
+In the Sunshine web UI → Configuration:
+
+- **Audio/Video → Display Id**: `STREAM`
+- **Advanced → Force a Specific Capture Method**: `wlroots`
+
+Remove the output with `hyprctl output remove STREAM`.
 
 ### Applications
 
