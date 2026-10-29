@@ -29,8 +29,10 @@ Use the `wlr` capture method; it can also capture a virtual output, so the clien
 
 ```sh
 hyprctl output create headless STREAM
-hyprctl keyword monitor STREAM,1920x1080@120,auto,1
+hyprctl eval 'hl.monitor({ output = "STREAM", mode = "1920x1080@120", position = "auto", scale = 1 })'
 ```
+
+With a Lua config (e.g. Hyprland 0.56) `hyprctl keyword` is rejected; hyprlang configs use `hyprctl keyword monitor STREAM,1920x1080@120,auto,1`. Both are lost on restart; to keep the rule, add the same `hl.monitor(...)` line to `~/.config/hypr/monitors.lua`.
 
 In Sunshine → Configuration → Audio/Video: `capture = wlr`, `output_name = STREAM`. Remove the output with `hyprctl output remove STREAM`.
 
