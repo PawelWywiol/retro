@@ -73,6 +73,7 @@ services:
       SERVER_COUNTRIES: ${SERVER_COUNTRIES}
     volumes:
       - ${DATA_PATH}/gluetun:/gluetun
+      - ./config/gluetun/auth.toml:/gluetun/auth/config.toml:ro
     ports:
       - ${MINERVA_PORT}:8080
 

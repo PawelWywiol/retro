@@ -1,0 +1,6 @@
+# Lets minerva's settings page read whether the tunnel is up and which address the world sees.
+# Port 8000 is not published, so only containers sharing gluetun's network can reach these routes.
+[[roles]]
+name = "minerva-status"
+routes = ["GET /v1/vpn/status", "GET /v1/publicip/ip"]
+auth = "none"
