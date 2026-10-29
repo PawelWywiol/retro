@@ -86,6 +86,7 @@ services:
     network_mode: service:gluetun
     environment:
       TZ: ${TZ}
+      ALLOWED_HOSTS: ${MINERVA_ALLOWED_HOSTS}
     volumes:
       - ${LIBRARY_PATH}:/library
       - ${DATA_PATH}/minerva:/data
