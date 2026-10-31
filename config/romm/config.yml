@@ -96,3 +96,40 @@ system:
     x68000: sharp-x68000
     zmachine: z-machine
     zxspectrum: zxs
+
+# gamelist.xml + media written by Skyscraper into roms/{platform} win over online sources
+scan:
+  priority:
+    metadata:
+      - gamelist
+      - igdb
+      - moby
+      - ss
+      - ra
+      - launchbox
+      - hasheous
+      - tgdb
+      - flashpoint
+      - steam
+      - hltb
+      - demozoo
+      - pouet
+      - csdb
+    artwork:
+      - gamelist
+      - sgdb
+      - igdb
+      - moby
+      - ss
+      - libretro
+      - ra
+      - launchbox
+      - hasheous
+      - tgdb
+      - flashpoint
+      - steam
+      - hltb
+      - demozoo
+      - pouet
+      - csdb
+  media: [box2d, screenshot, manual, video]
