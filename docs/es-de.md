@@ -29,7 +29,7 @@ Every path inside is relative (`~/…` or a relative symlink), so the mount poin
 3. In `retroarch.cfg` keep every directory under `~/.config/retroarch/` and point `system` at the BIOS with a relative symlink.
 4. In `es_settings.xml` set `ROMDirectory` and `MediaDirectory` to `~/ROMs`, so media sit next to the games where RomM reads them too.
 5. Standalone emulators: put their AppImages in `home/Applications/` (ES-DE's find rules look there); Cemu reads `keys.txt` from `~/.local/share/Cemu/`.
-6. Skyscraper: download `Skyscraper-<version>-x86_64.AppImage` from `https://github.com/Gemba/skyscraper/releases` to `home/Applications/`; in `home/.skyscraper/config.ini` set `frontend="esde"`, `videos`, `manuals`, `fanart`, `backcovers`, `unattend` to `"true"`, `artworkXml="artwork-esde.xml"` (raw `screenshot`, `cover`, and `wheel` as `marquee`) and `userCreds` under `[screenscraper]`.
+6. Skyscraper: download `Skyscraper-<version>-x86_64.AppImage` from `https://github.com/Gemba/skyscraper/releases` to `home/Applications/`; in `home/.skyscraper/config.ini` set `frontend="esde"`, `videos`, `manuals`, `fanarts`, `backcovers`, `unattend` to `"true"`, `artworkXml="artwork-esde.xml"` (raw `screenshot`, `cover`, and `wheel` as `marquee`) and `userCreds` under `[screenscraper]`.
 
 ## Use it
 
