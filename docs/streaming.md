@@ -55,7 +55,7 @@ Remove the output with `hyprctl output remove STREAM`.
 
 ### Applications
 
-Sunshine → Applications → add **ES-DE** with command `~/Applications/ES-DE_x64.AppImage` (fullscreen by default).
+Sunshine → Applications → add **ES-DE** with command `<disk>/ES-DE.sh` (fullscreen by default, see [ES-DE on the library disk](es-de.md)).
 
 ## Clients
 

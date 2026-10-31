@@ -47,7 +47,7 @@ ${DATA_PATH}/
 ## Guides
 
 - [Library disk](docs/storage.md)
-- [ES-DE on the host](docs/es-de.md)
+- [ES-DE on the library disk](docs/es-de.md)
 - [Streaming with Sunshine and Moonlight](docs/streaming.md)
 
 ## Commands
