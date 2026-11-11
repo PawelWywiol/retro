@@ -38,6 +38,9 @@ jobs:
       - name: lint
         run: pnpm lint
 
+      - name: windows installer
+        run: pnpm build:windows
+
       - name: secrets
         run: pnpm secrets
 

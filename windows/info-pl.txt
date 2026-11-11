@@ -1,0 +1,21 @@
+Retro to domowa biblioteka gier retro (RomM), dostępna w przeglądarce na tym komputerze i na innych urządzeniach w domu. Opcjonalnie możesz też grać na tym komputerze (ES-DE i RetroArch, obsługa pada).
+
+Instalator zrobi wszystko sam:
+
+  • włączy w Windows funkcje potrzebne do działania (WSL),
+  • pobierze i zainstaluje Docker Desktop (około 600 MB),
+  • pobierze i uruchomi Retro (około 1 GB),
+  • jeśli wybierzesz granie na tym komputerze: pobierze ES-DE i RetroArch (około 400 MB),
+  • doda skróty „Retro” i „Graj” na pulpicie.
+
+Czego potrzebujesz:
+
+  • Windows 10 22H2 lub Windows 11 (64-bit) i co najmniej 8 GB RAM,
+  • połączenia z internetem,
+  • około 30 minut.
+
+W trakcie komputer uruchomi się ponownie. Po zalogowaniu zatwierdź okno uprawnień i nie zamykaj okna „Retro - konfiguracja” do końca.
+
+Jeśli instalator napisze, że wirtualizacja jest wyłączona, trzeba ją włączyć w ustawieniach BIOS/UEFI komputera (opcja Intel VT-x, AMD-V lub SVM).
+
+Docker Desktop jest bezpłatny do użytku domowego. Instalując go, akceptujesz warunki Docker Subscription Service Agreement: https://www.docker.com/legal/docker-subscription-service-agreement
