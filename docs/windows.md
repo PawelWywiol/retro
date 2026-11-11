@@ -47,6 +47,8 @@ Run it again after editing `.env`: existing secrets are kept. The log is in `app
 pnpm build:windows   # dist/RetroSetup.exe, Inno Setup in Docker (Wine)
 ```
 
+CI builds it on `windows-latest` with the preinstalled Inno Setup; the tag workflow attaches it to the GitHub release of each new version.
+
 The installer is not code-signed, so Windows SmartScreen shows a warning (_More info → Run anyway_).
 
 ## ES-DE
