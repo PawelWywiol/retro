@@ -1,0 +1,12 @@
+services:
+  romm:
+    volumes:
+      - romm-redis:/redis-data
+
+  romm-db:
+    volumes:
+      - romm-db:/var/lib/mysql
+
+volumes:
+  romm-redis:
+  romm-db:

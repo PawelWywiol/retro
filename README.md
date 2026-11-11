@@ -16,6 +16,8 @@ This repository contains configuration only: no games, BIOS files or keys.
 - `openssl`, `make`
 - a WireGuard (or OpenVPN) account supported by gluetun, only for minerva-helper
 
+On Windows, use the installer instead: [Windows](docs/windows.md).
+
 ## Quick start
 
 ```sh
@@ -49,6 +51,7 @@ ${DATA_PATH}/
 - [Library disk](docs/storage.md)
 - [ES-DE on the library disk](docs/es-de.md)
 - [Streaming with Sunshine and Moonlight](docs/streaming.md)
+- [Windows](docs/windows.md)
 
 ## Commands
 

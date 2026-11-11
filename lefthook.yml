@@ -8,7 +8,7 @@ pre-commit:
       glob: '*.sh'
       run: pnpm lint:sh
     - name: compose
-      glob: '{compose.yml,.env.example}'
+      glob: '{compose.yml,compose.windows.yml,.env.example}'
       run: pnpm lint:compose
     - name: secrets
       run: docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.30.1 git --pre-commit --staged --redact /repo
