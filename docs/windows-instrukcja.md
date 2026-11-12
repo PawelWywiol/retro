@@ -82,7 +82,7 @@ Jeśli strona się nie otwiera, sprawdź, czy Docker Desktop działa (menu Start
 
 Otwórz skrót **Retro** i zaloguj się kontem z punktu 5.
 
-Gry wrzucaj do podfolderów w folderze z grami (menu Start → Retro → **Gry**), np. `D:\Gry\roms\snes`. Nazwy podfolderów:
+Gry wrzucaj do podfolderów w folderze z grami (menu Start → **Gry Retro**), np. `D:\Gry\roms\snes`. Nazwy podfolderów:
 
 | System | Folder |
 |---|---|
@@ -118,7 +118,7 @@ W Minerva otwórz **Ustawienia** → **Sprawdź VPN**:
 
 ## 8. Okładki i opisy
 
-Menu Start → **Retro** → **Pobierz okładki**. Okładki trafiają do folderu z grami, więc widzi je i RomM, i ES-DE. Przy dużej bibliotece trwa to długo. Na koniec w RomM uruchom skanowanie ze źródłem **Gamelist**, a ES-DE uruchom ponownie.
+Menu Start → **Pobierz okładki Retro** (wpisz w menu Start „okładki” albo „retro”). Okładki trafiają do folderu z grami, więc widzi je i RomM, i ES-DE. Przy dużej bibliotece trwa to długo. Na koniec w RomM uruchom skanowanie ze źródłem **Gamelist**, a ES-DE uruchom ponownie.
 
 ## 9. Dodanie lub zmiana VPN i konta ScreenScraper
 
@@ -158,7 +158,7 @@ Tak samo przez **Ustawienia Retro** zmienisz klucz, kraje serwerów, konto Scree
 
 ## 10. Granie na komputerze (ES-DE)
 
-Skrót **Graj** na pulpicie (albo menu Start → Retro → **Graj**) uruchamia ES-DE. Pada podłącz przed uruchomieniem. ES-DE pokazuje gry z tego samego folderu co RomM.
+Skrót **Graj** na pulpicie (albo menu Start → **Graj w Retro**) uruchamia ES-DE. Pada podłącz przed uruchomieniem. ES-DE pokazuje gry z tego samego folderu co RomM.
 
 Wyjście z gry: dwa razy _Start_ + _Select_ na padzie albo dwa razy klawisz **Esc**.
 
@@ -175,15 +175,15 @@ Jeśli nie działa, ustaw sieć jako prywatną: w tym samym oknie właściwości
 
 ## 12. Menu Start
 
-W menu Start, w folderze **Retro**, znajdziesz:
+Najłatwiej otworzyć menu Start i wpisać „retro”. W folderze **Retro** (Wszystkie aplikacje) znajdziesz:
 
 - **Retro** – RomM w przeglądarce
 - **Ustawienia Retro** – zmiana folderu z grami, VPN i konta ScreenScraper
-- **Pobierz okładki**
+- **Pobierz okładki Retro** – okładki i opisy gier dla RomM i ES-DE
 - **Kopia zapasowa Retro** – kopia biblioteki RomM (robi się też sama codziennie o 20:00)
 - **Przywróć kopię Retro** – przywraca ostatnią kopię (trzeba wpisać `TAK`)
-- **Gry** – otwiera folder z grami
-- **Graj** – ES-DE
+- **Gry Retro** – otwiera folder z grami
+- **Graj w Retro** – ES-DE
 
 ![Menu Start](images/windows/13-menu-start.png)
 
