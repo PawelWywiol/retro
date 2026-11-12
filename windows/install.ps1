@@ -115,7 +115,8 @@ function Initialize-Env {
     $rootPath = $Root -replace '\\', '/'
     (Get-Content (Join-Path $AppDir '.env.example')) -replace '^LIBRARY_PATH=.*', "LIBRARY_PATH=$rootPath/library" -replace '^DATA_PATH=.*', "DATA_PATH=$rootPath/data"
   }
-  $lines = $lines | ForEach-Object { if ($_ -match '^(DB_PASSWD|DB_ROOT_PASSWD|ROMM_AUTH_SECRET_KEY)=$') { "$($_)$(New-Secret)" } else { $_ } }
+  $lines = @($lines) + @((Get-Content (Join-Path $AppDir '.env.example')) | Where-Object { $_ -match '^([A-Z_]+)=' -and -not ($lines -match "^$($Matches[1])=") })
+  $lines = $lines | ForEach-Object { if ($_ -match '^(DB_PASSWD|DB_ROOT_PASSWD|ROMM_AUTH_SECRET_KEY|FILEBROWSER_ADMIN_PASSWORD)=$') { "$($_)$(New-Secret)" } else { $_ } }
   $pc = $env:COMPUTERNAME.ToLower()
   $lines = $lines -replace '^MINERVA_ALLOWED_HOSTS=$', "MINERVA_ALLOWED_HOSTS=$pc,$pc.local"
   if (-not ($lines -match '^COMPOSE_FILE=')) { $lines += 'COMPOSE_FILE=compose.yml;compose.windows.yml' }
@@ -191,7 +192,7 @@ function Set-Firewall($Vars) {
   Get-NetFirewallApplicationFilter | Where-Object Program -Like '*\com.docker.backend.exe' |
     Get-NetFirewallRule | Where-Object Action -EQ Block | Remove-NetFirewallRule
   Remove-NetFirewallRule -Name RetroPorts -ErrorAction SilentlyContinue
-  New-NetFirewallRule -Name RetroPorts -DisplayName 'Retro' -Direction Inbound -Protocol TCP -LocalPort $Vars.ROMM_PORT, $Vars.MINERVA_PORT -Action Allow -Profile Private | Out-Null
+  New-NetFirewallRule -Name RetroPorts -DisplayName 'Retro' -Direction Inbound -Protocol TCP -LocalPort $Vars.ROMM_PORT, $Vars.MINERVA_PORT, $Vars.FILEBROWSER_PORT -Action Allow -Profile Private | Out-Null
 }
 
 function Start-Stack($Vars) {
