@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- raw images: ES-DE builds its own miximages; it shows game logos from marquees -->
+<artwork>
+  <output type="screenshot"/>
+  <output type="cover"/>
+  <output type="marquee" resource="wheel"/>
+</artwork>

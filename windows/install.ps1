@@ -117,6 +117,7 @@ function Initialize-Env {
   }
   $lines = $lines | ForEach-Object { if ($_ -match '^(DB_PASSWD|DB_ROOT_PASSWD|ROMM_AUTH_SECRET_KEY)=$') { "$($_)$(New-Secret)" } else { $_ } }
   if (-not ($lines -match '^COMPOSE_FILE=')) { $lines += 'COMPOSE_FILE=compose.yml;compose.windows.yml' }
+  if ($EsDe) { $lines = @($lines -notmatch '^ESDE_GAMELISTS=') + "ESDE_GAMELISTS=$($Root -replace '\\', '/')/ES-DE/ES-DE/gamelists" }
   if ($Settings -and (Test-Path $Settings)) {
     $chosen = @{}
     Get-Content $Settings -Encoding UTF8 | Where-Object { $_ -match '^[A-Z_]+=' } | ForEach-Object { $k, $v = $_ -split '=', 2; $chosen[$k] = $v }
@@ -176,6 +177,7 @@ function Install-EsDe($Vars) {
   }
   Set-Line -File "$retroarch\retroarch.cfg" -Match '^system_directory\s*=' -Line "system_directory = `"$library\bios`""
   Set-Line -File "$esde\ES-DE\settings\es_settings.xml" -Match 'name="ROMDirectory"' -Line "<string name=`"ROMDirectory`" value=`"$library\roms`" />" -Header '<?xml version="1.0"?>'
+  Set-Line -File "$esde\ES-DE\settings\es_settings.xml" -Match 'name="MediaDirectory"' -Line "<string name=`"MediaDirectory`" value=`"$library\roms`" />"
   $shortcut = (New-Object -ComObject WScript.Shell).CreateShortcut("$([Environment]::GetFolderPath('Desktop'))\Graj.lnk")
   $shortcut.TargetPath = "$esde\ES-DE.exe"
   $shortcut.WorkingDirectory = $esde

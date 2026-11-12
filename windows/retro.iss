@@ -41,6 +41,7 @@ pl.Games=Gry
 pl.Play=Graj
 pl.Backup=Kopia zapasowa Retro
 pl.Restore=Przywróć kopię Retro
+pl.Scrape=Pobierz okładki
 pl.EsDeTask=Granie na tym komputerze: ES-DE i RetroArch (około 400 MB)
 pl.LibraryCaption=Folder z grami
 pl.LibraryDescription=Gdzie mają być gry?
@@ -56,7 +57,7 @@ pl.VpnCountries=Kraje serwerów (np. Poland, Czech Republic):
 pl.VpnIncomplete=Podaj dostawcę VPN i adres WireGuard albo wyczyść klucz prywatny.
 pl.MetadataCaption=Okładki i opisy gier (opcjonalne)
 pl.MetadataDescription=Konto ScreenScraper
-pl.MetadataSubCaption=Z kontem screenscraper.fr RomM pobiera więcej okładek i opisów. Możesz zostawić puste.
+pl.MetadataSubCaption=Z kontem screenscraper.fr RomM i „Pobierz okładki” pobierają więcej okładek i opisów, szybciej. Możesz zostawić puste.
 pl.MetadataUser=Login ScreenScraper:
 pl.MetadataPassword=Hasło ScreenScraper:
 pl.ReadyVpn=VPN:
@@ -75,6 +76,8 @@ Source: "..\config\romm\config.yml"; DestDir: "{app}\app\config\romm"; Flags: ig
 Source: "..\config\gluetun\auth.toml"; DestDir: "{app}\app\config\gluetun"; Flags: ignoreversion
 Source: "{srcexe}"; DestDir: "{app}\app"; DestName: "RetroSetup.exe"; Flags: external ignoreversion; Check: NotRunningFromApp
 Source: "backup.ps1"; DestDir: "{app}\app\windows"; Flags: ignoreversion
+Source: "scrape.ps1"; DestDir: "{app}\app\windows"; Flags: ignoreversion
+Source: "..\docker\skyscraper\*"; DestDir: "{app}\app\docker\skyscraper"; Flags: ignoreversion
 Source: "install.ps1"; DestDir: "{app}\app\windows"; Flags: ignoreversion; AfterInstall: Configure
 
 [INI]
@@ -83,6 +86,7 @@ Filename: "{autoprograms}\Retro\Retro.url"; Section: "InternetShortcut"; Key: "U
 [Icons]
 Name: "{autoprograms}\Retro\{cm:Settings}"; Filename: "{app}\app\RetroSetup.exe"
 Name: "{autoprograms}\Retro\{cm:Games}"; Filename: "{code:GetLibraryDir}\roms"
+Name: "{autoprograms}\Retro\{cm:Scrape}"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\app\windows\scrape.ps1"""
 Name: "{autoprograms}\Retro\{cm:Backup}"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\app\windows\backup.ps1"""
 Name: "{autoprograms}\Retro\{cm:Restore}"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\app\windows\backup.ps1"" -Restore"
 Name: "{autoprograms}\Retro\{cm:Play}"; Filename: "{app}\ES-DE\ES-DE.exe"; WorkingDir: "{app}\ES-DE"; Tasks: esde
