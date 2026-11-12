@@ -51,6 +51,12 @@ CI builds it on `windows-latest` with the preinstalled Inno Setup; the tag workf
 
 The installer is not code-signed, so Windows SmartScreen shows a warning (_More info → Run anyway_).
 
+## Backup
+
+The RomM database lives in a Docker volume, so resetting or uninstalling Docker Desktop deletes it. `windows\backup.ps1` dumps it with `mariadb-dump` to `<Retro folder>\backup\romm-<date>.sql` and keeps the last 14 dumps. It runs daily at 20:00 (task `RetroBackup`, or at the next sign-in if missed), before every settings change or update, and from Start menu → Retro → _Kopia zapasowa Retro_.
+
+_Przywróć kopię Retro_ (`backup.ps1 -Restore [-File <dump>]`) stops RomM, loads the newest dump after typing `TAK`, and starts RomM again. Covers, saves and the library are files on NTFS and are not part of the dump.
+
 ## ES-DE
 
 `install.ps1 -EsDe` downloads the latest ES-DE portable release, RetroArch (`$RetroArchVersion`) and the nightly cores in `$Cores` (ES-DE defaults for NES, SNES, Mega Drive/Master System/Game Gear, Game Boy/Color/Advance, N64, PlayStation, PC Engine, Atari 2600, DS). It sets `ROMDirectory` in `ES-DE\ES-DE\settings\es_settings.xml` to `<games folder>\roms` and `system_directory` in `retroarch.cfg` to `<games folder>\bios`. Existing downloads are kept; changing the games folder updates both settings. Other cores can be added in RetroArch (Online Updater). Media scraped by ES-DE go to `ES-DE\ES-DE\downloaded_media`.

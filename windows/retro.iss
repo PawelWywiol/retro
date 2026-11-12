@@ -39,6 +39,8 @@ pl.ConfigureFailed=Konfiguracja Retro nie powiodła się. Uruchom „Ustawienia 
 pl.Settings=Ustawienia Retro
 pl.Games=Gry
 pl.Play=Graj
+pl.Backup=Kopia zapasowa Retro
+pl.Restore=Przywróć kopię Retro
 pl.EsDeTask=Granie na tym komputerze: ES-DE i RetroArch (około 400 MB)
 pl.LibraryCaption=Folder z grami
 pl.LibraryDescription=Gdzie mają być gry?
@@ -72,6 +74,7 @@ Source: "..\LICENSE"; DestDir: "{app}\app"; Flags: ignoreversion
 Source: "..\config\romm\config.yml"; DestDir: "{app}\app\config\romm"; Flags: ignoreversion
 Source: "..\config\gluetun\auth.toml"; DestDir: "{app}\app\config\gluetun"; Flags: ignoreversion
 Source: "{srcexe}"; DestDir: "{app}\app"; DestName: "RetroSetup.exe"; Flags: external ignoreversion; Check: NotRunningFromApp
+Source: "backup.ps1"; DestDir: "{app}\app\windows"; Flags: ignoreversion
 Source: "install.ps1"; DestDir: "{app}\app\windows"; Flags: ignoreversion; AfterInstall: Configure
 
 [INI]
@@ -80,10 +83,13 @@ Filename: "{autoprograms}\Retro\Retro.url"; Section: "InternetShortcut"; Key: "U
 [Icons]
 Name: "{autoprograms}\Retro\{cm:Settings}"; Filename: "{app}\app\RetroSetup.exe"
 Name: "{autoprograms}\Retro\{cm:Games}"; Filename: "{code:GetLibraryDir}\roms"
+Name: "{autoprograms}\Retro\{cm:Backup}"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\app\windows\backup.ps1"""
+Name: "{autoprograms}\Retro\{cm:Restore}"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\app\windows\backup.ps1"" -Restore"
 Name: "{autoprograms}\Retro\{cm:Play}"; Filename: "{app}\ES-DE\ES-DE.exe"; WorkingDir: "{app}\ES-DE"; Tasks: esde
 
 [UninstallRun]
 Filename: "{commonpf64}\Docker\Docker\resources\bin\docker.exe"; Parameters: "compose --profile minerva down"; WorkingDir: "{app}\app"; Flags: runhidden waituntilterminated skipifdoesntexist; RunOnceId: "ComposeDown"
+Filename: "schtasks.exe"; Parameters: "/Delete /TN RetroBackup /F"; Flags: runhidden waituntilterminated; RunOnceId: "BackupTask"
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{autoprograms}\Retro"

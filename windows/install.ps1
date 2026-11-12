@@ -195,10 +195,22 @@ function Start-Stack($Vars) {
   $profileArgs = if ($Vars.WIREGUARD_PRIVATE_KEY) { '--profile', 'minerva' } else { @() }
   Push-Location $AppDir
   try {
+    if (& $Docker compose ps -q romm-db 2>$null) {
+      Write-Host 'Kopia zapasowa bazy przed zmianą...'
+      & powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$PSScriptRoot\backup.ps1" -NoPause | Out-Host
+    }
     if (-not $Vars.WIREGUARD_PRIVATE_KEY) { & $Docker compose --profile minerva rm --stop --force gluetun minerva-helper 2>&1 | Out-Null }
     & $Docker compose @profileArgs up -d
   } finally { Pop-Location }
   if ($LASTEXITCODE -ne 0) { Stop-Install 'Nie udało się uruchomić Retro. Uruchom instalator ponownie; jeśli błąd się powtarza, wyślij plik install.log.' }
+}
+
+function Register-Backup {
+  $action = New-ScheduledTaskAction -Execute powershell.exe -Argument "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$PSScriptRoot\backup.ps1`" -NoPause"
+  $trigger = New-ScheduledTaskTrigger -Daily -At 20:00
+  $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable
+  $principal = New-ScheduledTaskPrincipal -UserId ([Security.Principal.WindowsIdentity]::GetCurrent().Name) -LogonType Interactive
+  Register-ScheduledTask -TaskName RetroBackup -Action $action -Trigger $trigger -Settings $settings -Principal $principal -Force | Out-Null
 }
 
 function New-Shortcut($Vars) {
@@ -236,6 +248,7 @@ if ($restart) { Exit-ForRestart }
 Start-DockerDesktop
 Set-Firewall $cfg
 Start-Stack $cfg
+Register-Backup
 New-Shortcut $cfg
 $url = Open-Romm $cfg
 Write-Host "`nGotowe. Retro: skrót 'Retro' na pulpicie lub $url`n" -ForegroundColor Green
