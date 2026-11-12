@@ -37,6 +37,7 @@ Na każdej stronie klikasz **Dalej**. Pola opcjonalne możesz zostawić puste.
 | Gotowy do rozpoczęcia instalacji | sprawdź ustawienia i kliknij **Instaluj** |
 
 ![Informacja](images/windows/03-informacje.png)
+![Lokalizacja docelowa](images/windows/04-folder-retro.png)
 ![Folder z grami](images/windows/05-folder-gry.png)
 ![VPN](images/windows/06-vpn.png)
 ![Okładki i opisy](images/windows/07-okladki.png)
