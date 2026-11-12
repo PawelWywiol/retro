@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.2](https://github.com/PawelWywiol/retro/compare/v0.1.1...v0.1.2) (2026-11-12)
+
+### Bug Fixes
+
+* start menu shortcut names searchable by retro ([#35](https://github.com/PawelWywiol/retro/issues/35)) ([204a087](https://github.com/PawelWywiol/retro/commit/204a087749c2deecdd925a98315062f312abb026))
+
 ## [0.1.1](https://github.com/PawelWywiol/retro/compare/v0.1.0...v0.1.1) (2026-11-12)
 
 ## [0.1.0](https://github.com/PawelWywiol/retro/compare/v0.0.0...v0.1.0) (2026-11-12)
