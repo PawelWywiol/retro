@@ -120,15 +120,41 @@ W Minerva otwórz **Ustawienia** → **Sprawdź VPN**:
 
 Menu Start → **Retro** → **Pobierz okładki**. Okładki trafiają do folderu z grami, więc widzi je i RomM, i ES-DE. Przy dużej bibliotece trwa to długo. Na koniec w RomM uruchom skanowanie ze źródłem **Gamelist**, a ES-DE uruchom ponownie.
 
-## 9. Zmiana ustawień (VPN, ScreenScraper, folder z grami)
+## 9. Dodanie lub zmiana VPN i konta ScreenScraper
 
-Menu Start → **Retro** → **Ustawienia Retro**. Otworzy się ten sam kreator z obecnymi ustawieniami:
+Klucze VPN i konto ScreenScraper możesz dodać w dowolnym momencie, także jeśli przy instalacji zostawiłeś te pola puste. Nie trzeba niczego instalować od nowa.
 
-- **VPN** – wpisz nowy klucz, adres lub kraje serwerów; wyczyść pole klucza, żeby wyłączyć Minerva;
-- **ScreenScraper** – zmień login i hasło;
-- **folder z grami** – ustaw nowy folder (gier nie przenosi, przenieś je sam).
+### Przygotuj dane VPN
 
-Kliknij **Dalej** aż do **Instaluj**. Retro uruchomi się ponownie z nowymi ustawieniami (bez restartu komputera), a przedtem zrobi kopię zapasową.
+Minerva potrzebuje konta VPN z obsługą WireGuard, np. Mullvad, Proton VPN, NordVPN lub Surfshark ([pełna lista](https://github.com/qdm12/gluetun-wiki/tree/main/setup/providers)).
+
+1. Zaloguj się na stronie swojego dostawcy VPN i wygeneruj ręczną konfigurację **WireGuard** (szukaj opcji typu _WireGuard configuration_ / _manual setup_). Pobierzesz plik `.conf`.
+2. Otwórz go w Notatniku. Potrzebne są dwie linie z sekcji `[Interface]`:
+   - `PrivateKey = …` – to jest **klucz prywatny**,
+   - `Address = …` – to jest **adres**, np. `10.0.0.2/32` (jeśli po przecinku jest drugi adres z dwukropkami, przepisz tylko pierwszy).
+
+Klucz prywatny jest tajny jak hasło: nikomu go nie wysyłaj.
+
+### Przygotuj konto ScreenScraper
+
+Załóż darmowe konto na [screenscraper.fr](https://www.screenscraper.fr) i zapamiętaj login i hasło. Z kontem RomM i **Pobierz okładki** pobierają więcej okładek i opisów, szybciej.
+
+### Wpisz dane
+
+1. Menu Start → **Retro** → **Ustawienia Retro** (zatwierdź okno uprawnień przyciskiem **Tak**).
+2. Klikaj **Dalej**. Kreator pokazuje obecne ustawienia, niczego nie zmieniaj na stronach, których nie dotyczy zmiana.
+3. Strona **Pobieranie gier przez VPN**:
+   - **Dostawca VPN** – nazwa małymi literami, np. `mullvad`, `protonvpn`, `nordvpn`, `surfshark`,
+   - **Klucz prywatny WireGuard** – wartość `PrivateKey`,
+   - **Adres WireGuard** – wartość `Address`,
+   - **Kraje serwerów** – po angielsku, oddzielone przecinkami, np. `Poland, Germany`; puste oznacza dowolny kraj.
+4. Strona **Okładki i opisy gier** – login i hasło ScreenScraper.
+5. **Dalej** → **Instaluj**. Czarne okno **„Retro - konfiguracja”** zrobi kopię zapasową i uruchomi Retro ponownie z nowymi ustawieniami (bez restartu komputera), a na końcu otworzy RomM. Po pierwszym dodaniu VPN pobiera też programy VPN i Minerva, więc trwa dłużej.
+6. Po dodaniu VPN otwórz Minerva (`http://localhost:8090`) i sprawdź połączenie: **Ustawienia** → **Sprawdź VPN** (punkt 7).
+
+### Zmiana i wyłączenie
+
+Tak samo przez **Ustawienia Retro** zmienisz klucz, kraje serwerów, konto ScreenScraper albo folder z grami (zmiana folderu nie przenosi gier, przenieś je sam). Żeby wyłączyć Minerva, wyczyść pole **Klucz prywatny WireGuard**.
 
 ## 10. Granie na komputerze (ES-DE)
 
