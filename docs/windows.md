@@ -65,7 +65,7 @@ _Przywróć kopię Retro_ (`backup.ps1 -Restore [-File <dump>]`) stops RomM, loa
 
 ## Covers (Skyscraper)
 
-Start menu → Retro → _Pobierz okładki_ runs `windows\scrape.ps1`: the `skyscraper` service (`compose.windows.yml`, profile `scrape`, image built from `docker/skyscraper`) does what `Skyscraper.sh` does on the Linux disk. Media go to `<games folder>\roms\<system>\<type>\` with `noload.txt`, the gamelist to `ES-DE\ES-DE\gamelists\<system>\` (`ESDE_GAMELISTS`, without ES-DE `data\skyscraper\gamelists`) with `./` paths, and a copy to `roms\<system>\gamelist.xml` for RomM. ES-DE's `MediaDirectory` points at the games folder, so ES-DE and RomM show the same media. The ScreenScraper login from the wizard is used when set; the cache lives in the `skyscraper` volume. `scrape.ps1 -Systems nes,snes` limits the run.
+Start menu → Retro → _Pobierz okładki Retro_ runs `windows\scrape.ps1`: the `skyscraper` service (`compose.windows.yml`, profile `scrape`, image built from `docker/skyscraper`) does what `Skyscraper.sh` does on the Linux disk. Media go to `<games folder>\roms\<system>\<type>\` with `noload.txt`, the gamelist to `ES-DE\ES-DE\gamelists\<system>\` (`ESDE_GAMELISTS`, without ES-DE `data\skyscraper\gamelists`) with `./` paths, and a copy to `roms\<system>\gamelist.xml` for RomM. ES-DE's `MediaDirectory` points at the games folder, so ES-DE and RomM show the same media. The ScreenScraper login from the wizard is used when set; the cache lives in the `skyscraper` volume. `scrape.ps1 -Systems nes,snes` limits the run.
 
 ## Differences from Linux
 

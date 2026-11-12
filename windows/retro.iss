@@ -37,11 +37,11 @@ pl.FinishedRestartLabel=Aby dokończyć instalację, komputer musi zostać uruch
 pl.Configuring=Konfigurowanie Retro, to może potrwać kilkanaście minut...
 pl.ConfigureFailed=Konfiguracja Retro nie powiodła się. Uruchom „Ustawienia Retro” z menu Start. Szczegóły: %1
 pl.Settings=Ustawienia Retro
-pl.Games=Gry
-pl.Play=Graj
+pl.Games=Gry Retro
+pl.Play=Graj w Retro
 pl.Backup=Kopia zapasowa Retro
 pl.Restore=Przywróć kopię Retro
-pl.Scrape=Pobierz okładki
+pl.Scrape=Pobierz okładki Retro
 pl.EsDeTask=Granie na tym komputerze: ES-DE i RetroArch (około 400 MB)
 pl.LibraryCaption=Folder z grami
 pl.LibraryDescription=Gdzie mają być gry?
@@ -83,6 +83,11 @@ Source: "install.ps1"; DestDir: "{app}\app\windows"; Flags: ignoreversion; After
 [INI]
 Filename: "{autoprograms}\Retro\Retro.url"; Section: "InternetShortcut"; Key: "URL"; String: "http://localhost:8080"
 
+[InstallDelete]
+Type: files; Name: "{autoprograms}\Retro\Gry.lnk"
+Type: files; Name: "{autoprograms}\Retro\Graj.lnk"
+Type: files; Name: "{autoprograms}\Retro\Pobierz okładki.lnk"
+
 [Icons]
 Name: "{autoprograms}\Retro\{cm:Settings}"; Filename: "{app}\app\RetroSetup.exe"
 Name: "{autoprograms}\Retro\{cm:Games}"; Filename: "{code:GetLibraryDir}\roms"
@@ -99,6 +104,7 @@ Filename: "schtasks.exe"; Parameters: "/Delete /TN RetroBackup /F"; Flags: runhi
 Type: filesandordirs; Name: "{autoprograms}\Retro"
 Type: files; Name: "{userdesktop}\Retro.url"
 Type: files; Name: "{userdesktop}\Graj.lnk"
+Type: files; Name: "{userdesktop}\Minerva.url"
 
 [Code]
 var
