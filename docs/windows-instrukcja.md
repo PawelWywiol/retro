@@ -62,13 +62,27 @@ Po zalogowaniu:
 
 ## 5. Pierwsze uruchomienie RomM
 
-W przeglądarce otworzy się kreator RomM: przejdź go i **utwórz konto administratora** (login i hasło zapamiętaj). Później RomM otworzysz skrótem **Retro** na pulpicie.
+W przeglądarce otworzy się kreator RomM: przejdź go i **utwórz konto administratora** (login i hasło zapamiętaj).
 
 ![RomM](images/windows/12-romm.png)
 
-## 6. Dodawanie gier
+## Jak to działa
 
-Gry wrzucaj do podfolderów w folderze z grami, np. `D:\Gry\roms\snes`. Nazwy podfolderów:
+Retro działa w tle w programie **Docker Desktop**, który uruchamia się sam po zalogowaniu do Windows (ikona wieloryba przy zegarze). Nie trzeba niczego włączać: po kilku minutach od zalogowania RomM i Minerva są gotowe. Wszystko otwierasz w przeglądarce:
+
+| Co | Do czego | Adres na tym komputerze | Skrót |
+|---|---|---|---|
+| **RomM** | przeglądanie biblioteki, okładki, granie w przeglądarce | `http://localhost:8080` | **Retro** na pulpicie |
+| **Minerva** | wyszukiwanie i pobieranie gier przez VPN (tylko jeśli podałeś klucz VPN) | `http://localhost:8090` | **Minerva** na pulpicie |
+| **ES-DE** | granie na tym komputerze z padem | – | **Graj** na pulpicie |
+
+Jeśli strona się nie otwiera, sprawdź, czy Docker Desktop działa (menu Start → Docker Desktop), i odczekaj minutę.
+
+## 6. RomM – biblioteka gier
+
+Otwórz skrót **Retro** i zaloguj się kontem z punktu 5.
+
+Gry wrzucaj do podfolderów w folderze z grami (menu Start → Retro → **Gry**), np. `D:\Gry\roms\snes`. Nazwy podfolderów:
 
 | System | Folder |
 |---|---|
@@ -83,26 +97,61 @@ Gry wrzucaj do podfolderów w folderze z grami, np. `D:\Gry\roms\snes`. Nazwy po
 | PC Engine | `pcengine` |
 | Atari 2600 | `atari2600` |
 
-Pliki BIOS (np. do PlayStation) wrzucaj do folderu `bios`. Potem uruchom w RomM skanowanie biblioteki (_Scan_).
+Pliki BIOS (np. do PlayStation) wrzucaj do folderu `bios`. Po dodaniu gier uruchom w RomM skanowanie biblioteki (_Scan_), inaczej nowe gry się nie pokażą.
 
-## 7. Okładki i opisy
+## 7. Minerva – pobieranie gier
 
-Menu Start → **Retro** → **Pobierz okładki**. Przy dużej bibliotece trwa to długo. Na koniec w RomM uruchom skanowanie ze źródłem **Gamelist**.
+Minerva działa tylko wtedy, gdy w kreatorze podałeś dane VPN. Cały jej ruch idzie przez VPN, a gdy VPN się rozłączy, pobieranie się zatrzymuje.
 
-## 8. Granie na komputerze
+1. Otwórz skrót **Minerva**.
+2. Za pierwszym razem kliknij **Pobierz katalog** (około 1,7 GB, kilka minut, tylko raz).
+3. Znajdź grę w **Szukaj** albo **Przeglądaj** i kliknij przycisk pobierania. Postęp widać w **Kolejka**.
+4. Pobrana gra trafia od razu do właściwego folderu `roms\<system>`. W RomM uruchom skanowanie (_Scan_), a w ES-DE gra pojawi się po ponownym uruchomieniu.
 
-Skrót **Graj** na pulpicie uruchamia ES-DE. Pada podłącz przed uruchomieniem. Wyjście z gry: dwa razy _Start_ + _Select_ na padzie albo dwa razy klawisz **Esc**.
+### Czy VPN działa?
 
-## 9. Inne urządzenia w domu
+W Minerva otwórz **Ustawienia** → **Sprawdź VPN**:
 
-Na telefonie lub telewizorze wpisz w przeglądarce `http://NAZWA-KOMPUTERA:8080` (nazwę znajdziesz w Ustawienia → System → Informacje).
+- **„Pobieranie idzie przez VPN.”** – wszystko w porządku; **Adres publiczny**, **Lokalizacja** i **Dostawca** pokazują serwer VPN, a nie Twój dom i operatora internetu;
+- **„Stan VPN: …”** albo **„Nie znaleziono VPN”** – VPN nie jest połączony, pobieranie jest wstrzymane. Sprawdź dane VPN (punkt 9) albo uruchom komputer ponownie;
+- strona Minerva się nie otwiera – VPN nie jest skonfigurowany albo Docker Desktop nie działa.
 
-Jeśli nie działa, ustaw sieć jako prywatną: Ustawienia → Sieć i Internet → Wi-Fi lub Ethernet → właściwości sieci → typ profilu sieciowego **Sieć prywatna**.
+## 8. Okładki i opisy
 
-## 10. Menu Start
+Menu Start → **Retro** → **Pobierz okładki**. Okładki trafiają do folderu z grami, więc widzi je i RomM, i ES-DE. Przy dużej bibliotece trwa to długo. Na koniec w RomM uruchom skanowanie ze źródłem **Gamelist**, a ES-DE uruchom ponownie.
+
+## 9. Zmiana ustawień (VPN, ScreenScraper, folder z grami)
+
+Menu Start → **Retro** → **Ustawienia Retro**. Otworzy się ten sam kreator z obecnymi ustawieniami:
+
+- **VPN** – wpisz nowy klucz, adres lub kraje serwerów; wyczyść pole klucza, żeby wyłączyć Minerva;
+- **ScreenScraper** – zmień login i hasło;
+- **folder z grami** – ustaw nowy folder (gier nie przenosi, przenieś je sam).
+
+Kliknij **Dalej** aż do **Instaluj**. Retro uruchomi się ponownie z nowymi ustawieniami (bez restartu komputera), a przedtem zrobi kopię zapasową.
+
+## 10. Granie na komputerze (ES-DE)
+
+Skrót **Graj** na pulpicie (albo menu Start → Retro → **Graj**) uruchamia ES-DE. Pada podłącz przed uruchomieniem. ES-DE pokazuje gry z tego samego folderu co RomM.
+
+Wyjście z gry: dwa razy _Start_ + _Select_ na padzie albo dwa razy klawisz **Esc**.
+
+## 11. Inne urządzenia w domu
+
+Na telefonie, tablecie lub telewizorze wpisz w przeglądarce adres komputera:
+
+- RomM: `http://ADRES-IP:8080`
+- Minerva: `http://ADRES-IP:8090`
+
+Adres IP znajdziesz w Ustawienia → Sieć i Internet → Wi-Fi lub Ethernet → właściwości sieci → **Adres IPv4** (np. `192.168.1.20`). Zamiast adresu IP możesz spróbować nazwy komputera (Ustawienia → System → Informacje), ale nie każde urządzenie ją rozpozna.
+
+Jeśli nie działa, ustaw sieć jako prywatną: w tym samym oknie właściwości sieci wybierz typ profilu sieciowego **Sieć prywatna**.
+
+## 12. Menu Start
 
 W menu Start, w folderze **Retro**, znajdziesz:
 
+- **Retro** – RomM w przeglądarce
 - **Ustawienia Retro** – zmiana folderu z grami, VPN i konta ScreenScraper
 - **Pobierz okładki**
 - **Kopia zapasowa Retro** – kopia biblioteki RomM (robi się też sama codziennie o 20:00)
