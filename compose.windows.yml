@@ -7,6 +7,19 @@ services:
     volumes:
       - romm-db:/var/lib/mysql
 
+  skyscraper:
+    build: docker/skyscraper
+    image: retro-skyscraper:local
+    profiles: [scrape]
+    environment:
+      SCREENSCRAPER_USER: ${SCREENSCRAPER_USER}
+      SCREENSCRAPER_PASSWORD: ${SCREENSCRAPER_PASSWORD}
+    volumes:
+      - ${LIBRARY_PATH}:/library
+      - ${ESDE_GAMELISTS:-${DATA_PATH}/skyscraper/gamelists}:/gamelists
+      - skyscraper:/root/.skyscraper
+
 volumes:
   romm-redis:
   romm-db:
+  skyscraper:

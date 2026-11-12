@@ -61,6 +61,10 @@ _Przywróć kopię Retro_ (`backup.ps1 -Restore [-File <dump>]`) stops RomM, loa
 
 `install.ps1 -EsDe` downloads the latest ES-DE portable release, RetroArch (`$RetroArchVersion`) and the nightly cores in `$Cores` (ES-DE defaults for NES, SNES, Mega Drive/Master System/Game Gear, Game Boy/Color/Advance, N64, PlayStation, PC Engine, Atari 2600, DS). It sets `ROMDirectory` in `ES-DE\ES-DE\settings\es_settings.xml` to `<games folder>\roms` and `system_directory` in `retroarch.cfg` to `<games folder>\bios`. Existing downloads are kept; changing the games folder updates both settings. Other cores can be added in RetroArch (Online Updater). Media scraped by ES-DE go to `ES-DE\ES-DE\downloaded_media`.
 
+## Covers (Skyscraper)
+
+Start menu → Retro → _Pobierz okładki_ runs `windows\scrape.ps1`: the `skyscraper` service (`compose.windows.yml`, profile `scrape`, image built from `docker/skyscraper`) does what `Skyscraper.sh` does on the Linux disk. Media go to `<games folder>\roms\<system>\<type>\` with `noload.txt`, the gamelist to `ES-DE\ES-DE\gamelists\<system>\` (`ESDE_GAMELISTS`, without ES-DE `data\skyscraper\gamelists`) with `./` paths, and a copy to `roms\<system>\gamelist.xml` for RomM. ES-DE's `MediaDirectory` points at the games folder, so ES-DE and RomM show the same media. The ScreenScraper login from the wizard is used when set; the cache lives in the `skyscraper` volume. `scrape.ps1 -Systems nes,snes` limits the run.
+
 ## Differences from Linux
 
 - `compose.windows.yml` keeps MariaDB and Redis in named volumes: bind mounts from NTFS are much slower for small files. They live inside Docker Desktop's disk, so resetting or uninstalling Docker Desktop deletes them.
