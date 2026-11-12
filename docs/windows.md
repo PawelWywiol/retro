@@ -2,6 +2,8 @@
 
 The same stack runs on Windows 10 22H2 / Windows 11 with Docker Desktop on WSL 2.
 
+Step-by-step guide for users, in Polish: [instrukcja](windows-instrukcja.md).
+
 ## Requirements
 
 - 64-bit Windows 10 22H2 (build 19045) or Windows 11, 8 GB RAM

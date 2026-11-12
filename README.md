@@ -16,7 +16,7 @@ This repository contains configuration only: no games, BIOS files or keys.
 - `openssl`, `make`
 - a WireGuard (or OpenVPN) account supported by gluetun, only for minerva-helper
 
-On Windows, use the installer instead: [Windows](docs/windows.md).
+On Windows, use the installer instead: [Windows](docs/windows.md), user guide in Polish: [instrukcja](docs/windows-instrukcja.md).
 
 ## Quick start
 
