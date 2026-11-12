@@ -14,7 +14,7 @@
     "lint:sh": "docker run --rm -v \"$PWD:/mnt\" koalaman/shellcheck:v0.11.0 scripts/init.sh scripts/check-env-secrets.sh docker/skyscraper/scrape.sh",
     "lint:ps": "docker run --rm -v \"$PWD/windows:/w:ro\" mcr.microsoft.com/powershell:7.4-alpine-3.20 pwsh -NoProfile -Command \"Install-Module PSScriptAnalyzer -RequiredVersion 1.25.0 -Scope CurrentUser -Force; \\$r = Invoke-ScriptAnalyzer -Path /w -Recurse -ExcludeRule PSAvoidUsingWriteHost,PSUseShouldProcessForStateChangingFunctions,PSPossibleIncorrectUsageOfRedirectionOperator,PSReviewUnusedParameter; \\$r; exit \\$r.Count\"",
     "lint:actions": "docker run --rm -u \"$(id -u):$(id -g)\" -v \"$PWD:/repo\" -w /repo rhysd/actionlint:1.7.12 -color",
-    "lint:compose": "export DB_PASSWD=ci DB_ROOT_PASSWD=ci ROMM_AUTH_SECRET_KEY=ci; docker compose --env-file .env.example --profile minerva config --quiet && docker compose --env-file .env.example -f compose.yml -f compose.windows.yml config --quiet",
+    "lint:compose": "export DB_PASSWD=ci DB_ROOT_PASSWD=ci ROMM_AUTH_SECRET_KEY=ci FILEBROWSER_ADMIN_PASSWORD=ci; docker compose --env-file .env.example --profile minerva config --quiet && docker compose --env-file .env.example -f compose.yml -f compose.windows.yml config --quiet",
     "secrets": "docker run --rm -v \"$PWD:/repo\" zricethezav/gitleaks:v8.30.1 git --redact --verbose /repo",
     "audit": "pnpm dlx audit-ci@7.1.0 --config ./audit-ci.jsonc",
     "deps:check": "pnpm outdated --include-github-actions",

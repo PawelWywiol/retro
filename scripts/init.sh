@@ -10,7 +10,14 @@ if [[ ! -f .env ]]; then
   echo "created .env"
 fi
 
-for key in DB_PASSWD DB_ROOT_PASSWD ROMM_AUTH_SECRET_KEY; do
+while IFS= read -r line; do
+  if [[ $line =~ ^([A-Z_]+)= ]] && ! grep -q "^${BASH_REMATCH[1]}=" .env; then
+    echo "$line" >>.env
+    echo "added ${BASH_REMATCH[1]}"
+  fi
+done <.env.example
+
+for key in DB_PASSWD DB_ROOT_PASSWD ROMM_AUTH_SECRET_KEY FILEBROWSER_ADMIN_PASSWORD; do
   if grep -qx "${key}=" .env; then
     sed -i "s|^${key}=$|${key}=$(openssl rand -hex 32)|" .env
     echo "generated ${key}"
@@ -36,7 +43,8 @@ mkdir -p \
   "${DATA_PATH}/romm/redis" \
   "${DATA_PATH}/mariadb" \
   "${DATA_PATH}/gluetun" \
-  "${DATA_PATH}/minerva"
+  "${DATA_PATH}/minerva" \
+  "${DATA_PATH}/filebrowser"
 
 if [[ ! -f "${DATA_PATH}/romm/config/config.yml" ]]; then
   cp config/romm/config.yml "${DATA_PATH}/romm/config/config.yml"

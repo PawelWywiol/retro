@@ -74,6 +74,7 @@ Source: "..\.env.example"; DestDir: "{app}\app"; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}\app"; Flags: ignoreversion
 Source: "..\config\romm\config.yml"; DestDir: "{app}\app\config\romm"; Flags: ignoreversion
 Source: "..\config\gluetun\auth.toml"; DestDir: "{app}\app\config\gluetun"; Flags: ignoreversion
+Source: "..\config\filebrowser\config.yaml"; DestDir: "{app}\app\config\filebrowser"; Flags: ignoreversion
 Source: "{srcexe}"; DestDir: "{app}\app"; DestName: "RetroSetup.exe"; Flags: external ignoreversion; Check: NotRunningFromApp
 Source: "backup.ps1"; DestDir: "{app}\app\windows"; Flags: ignoreversion
 Source: "scrape.ps1"; DestDir: "{app}\app\windows"; Flags: ignoreversion
@@ -82,6 +83,7 @@ Source: "install.ps1"; DestDir: "{app}\app\windows"; Flags: ignoreversion; After
 
 [INI]
 Filename: "{autoprograms}\Retro\Retro.url"; Section: "InternetShortcut"; Key: "URL"; String: "http://localhost:8080"
+Filename: "{autoprograms}\Retro\Pliki Retro.url"; Section: "InternetShortcut"; Key: "URL"; String: "http://localhost:8070"
 
 [InstallDelete]
 Type: files; Name: "{autoprograms}\Retro\Gry.lnk"

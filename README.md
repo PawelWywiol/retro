@@ -5,6 +5,7 @@ Self-hosted retro gaming stack in Docker Compose:
 - [RomM](https://github.com/rommapp/romm): library manager with metadata and in-browser play (EmulatorJS)
 - [minerva-helper-web-app](https://github.com/PawelWywiol/minerva-helper-web-app): picks single games out of the MiNERVA archive and files them into the library (optional, routed through VPN)
 - [gluetun](https://github.com/qdm12/gluetun): VPN client used only by minerva-helper
+- [FileBrowser Quantum](https://github.com/gtsteffaniak/filebrowser): web file manager for the library (browse, upload, copy, move, delete)
 
 The library uses the [ES-DE](https://es-de.org) folder layout, so the same disk works with ES-DE + RetroArch on the host.
 
@@ -29,7 +30,7 @@ make up          # RomM only
 make up-all      # RomM + gluetun + minerva-helper (needs the VPN settings in .env)
 ```
 
-RomM: `http://<host>:${ROMM_PORT}`, minerva-helper: `http://<host>:${MINERVA_PORT}`.
+RomM: `http://<host>:${ROMM_PORT}`, minerva-helper: `http://<host>:${MINERVA_PORT}`, file manager: `http://<host>:${FILEBROWSER_PORT}` (user `admin`, password `FILEBROWSER_ADMIN_PASSWORD` from `.env`, applied on every start).
 
 ## Layout
 
@@ -41,10 +42,11 @@ ${DATA_PATH}/
 ├── romm/{resources,assets,config,redis}
 ├── mariadb/
 ├── gluetun/
-└── minerva/
+├── minerva/
+└── filebrowser/
 ```
 
-`config/romm/config.yml` maps ES-DE folder names to RomM platform slugs where they differ. `make init` copies it to `${DATA_PATH}/romm/config/` once; edit the copy there.
+`config/romm/config.yml` maps ES-DE folder names to RomM platform slugs where they differ. `make init` copies it to `${DATA_PATH}/romm/config/` once; edit the copy there. `make init` also adds keys missing from `.env` (from `.env.example`) after an update.
 
 ## Guides
 

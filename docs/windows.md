@@ -36,8 +36,8 @@ The script:
 
 1. checks the requirements
 2. enables WSL and Virtual Machine Platform, installs WSL and Docker Desktop, sets Docker Desktop to start at sign-in without opening its window, then exits with code 3010 and continues after the restart (RunOnce)
-3. creates `.env` with generated secrets, `COMPOSE_FILE=compose.yml;compose.windows.yml`, `MINERVA_ALLOWED_HOSTS=<computer name>,<computer name>.local` when empty, and the folder tree
-4. removes inbound Block rules for Docker Desktop and allows `ROMM_PORT` and `MINERVA_PORT` on private networks
+3. creates `.env` with generated secrets (keys added to `.env.example` in an update are appended), `COMPOSE_FILE=compose.yml;compose.windows.yml`, `MINERVA_ALLOWED_HOSTS=<computer name>,<computer name>.local` when empty, and the folder tree
+4. removes inbound Block rules for Docker Desktop and allows `ROMM_PORT`, `MINERVA_PORT` and `FILEBROWSER_PORT` on private networks
 5. starts the stack, with minerva-helper when `WIREGUARD_PRIVATE_KEY` is set in `.env`
 6. puts `Retro` (RomM) and, with a WireGuard key, `Minerva` shortcuts on the desktop and opens RomM
 
@@ -67,8 +67,12 @@ _Przywróć kopię Retro_ (`backup.ps1 -Restore [-File <dump>]`) stops RomM, loa
 
 Start menu → Retro → _Pobierz okładki Retro_ runs `windows\scrape.ps1`: the `skyscraper` service (`compose.windows.yml`, profile `scrape`, image built from `docker/skyscraper`) does what `Skyscraper.sh` does on the Linux disk. Media go to `<games folder>\roms\<system>\<type>\` with `noload.txt`, the gamelist to `ES-DE\ES-DE\gamelists\<system>\` (`ESDE_GAMELISTS`, without ES-DE `data\skyscraper\gamelists`) with `./` paths, and a copy to `roms\<system>\gamelist.xml` for RomM. ES-DE's `MediaDirectory` points at the games folder, so ES-DE and RomM show the same media. The ScreenScraper login from the wizard is used when set; the cache lives in the `skyscraper` volume. `scrape.ps1 -Systems nes,snes` limits the run.
 
+## File manager
+
+FileBrowser Quantum (`filebrowser` service, Start menu → Retro → _Pliki Retro_, `http://localhost:8070`) manages the games folder in the browser. User `admin`, password `FILEBROWSER_ADMIN_PASSWORD` in `app\.env`, applied on every start. Its database lives in the `filebrowser` volume.
+
 ## Differences from Linux
 
-- `compose.windows.yml` keeps MariaDB and Redis in named volumes: bind mounts from NTFS are much slower for small files. They live inside Docker Desktop's disk, so resetting or uninstalling Docker Desktop deletes them.
+- `compose.windows.yml` keeps MariaDB, Redis and the file manager database in named volumes: bind mounts from NTFS are much slower for small files. They live inside Docker Desktop's disk, so resetting or uninstalling Docker Desktop deletes them.
 - The library stays on NTFS, so ES-DE on the same PC can use it.
 - RomM and minerva-helper are reachable from other devices only when Windows marks the network as private. minerva-helper rejects host names outside `MINERVA_ALLOWED_HOSTS`; IP addresses always work.

@@ -7,6 +7,10 @@ services:
     volumes:
       - romm-db:/var/lib/mysql
 
+  filebrowser:
+    volumes:
+      - filebrowser:/home/filebrowser/data
+
   skyscraper:
     build: docker/skyscraper
     image: retro-skyscraper:local
@@ -23,3 +27,4 @@ volumes:
   romm-redis:
   romm-db:
   skyscraper:
+  filebrowser:

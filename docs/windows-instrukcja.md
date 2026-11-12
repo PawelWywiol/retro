@@ -75,6 +75,7 @@ Retro działa w tle w programie **Docker Desktop**, który uruchamia się sam po
 | **RomM** | przeglądanie biblioteki, okładki, granie w przeglądarce | `http://localhost:8080` | **Retro** na pulpicie |
 | **Minerva** | wyszukiwanie i pobieranie gier przez VPN (tylko jeśli podałeś klucz VPN) | `http://localhost:8090` | **Minerva** na pulpicie |
 | **ES-DE** | granie na tym komputerze z padem | – | **Graj** na pulpicie |
+| **Pliki** | przeglądanie, wgrywanie, kopiowanie, przenoszenie i usuwanie plików w folderze z grami | `http://localhost:8070` | menu Start → **Pliki Retro** |
 
 Jeśli strona się nie otwiera, sprawdź, czy Docker Desktop działa (menu Start → Docker Desktop), i odczekaj minutę.
 
@@ -115,6 +116,15 @@ W Minerva otwórz **Ustawienia** → **Sprawdź VPN**:
 - **„Pobieranie idzie przez VPN.”** – wszystko w porządku; **Adres publiczny**, **Lokalizacja** i **Dostawca** pokazują serwer VPN, a nie Twój dom i operatora internetu;
 - **„Stan VPN: …”** albo **„Nie znaleziono VPN”** – VPN nie jest połączony, pobieranie jest wstrzymane. Sprawdź dane VPN (punkt 9) albo uruchom komputer ponownie;
 - strona Minerva się nie otwiera – VPN nie jest skonfigurowany albo Docker Desktop nie działa.
+
+## 7a. Pliki – zarządzanie folderem z grami
+
+Menu Start → **Pliki Retro** (albo `http://localhost:8070`) otwiera menedżer plików w przeglądarce. Działa też z telefonu i innego komputera (`http://ADRES-IP:8070`, punkt 11), więc gry można wgrać bez kopiowania na pendrive.
+
+- **Login:** `admin`
+- **Hasło:** otwórz w Notatniku plik `C:\Retro\app\.env` i skopiuj wartość z linii `FILEBROWSER_ADMIN_PASSWORD=` (wszystko po znaku `=`). Hasło jest nadawane przy każdym uruchomieniu Retro, więc zmienia się je tylko w tym pliku, a potem przez **Ustawienia Retro**.
+
+Gry wgrywaj do `roms\<system>` (nazwy folderów w punkcie 6), a potem uruchom skanowanie w RomM.
 
 ## 8. Okładki i opisy
 
@@ -168,6 +178,7 @@ Na telefonie, tablecie lub telewizorze wpisz w przeglądarce adres komputera:
 
 - RomM: `http://ADRES-IP:8080`
 - Minerva: `http://ADRES-IP:8090`
+- Pliki: `http://ADRES-IP:8070`
 
 Adres IP znajdziesz w Ustawienia → Sieć i Internet → Wi-Fi lub Ethernet → właściwości sieci → **Adres IPv4** (np. `192.168.1.20`). Zamiast adresu IP możesz spróbować nazwy komputera (Ustawienia → System → Informacje), ale nie każde urządzenie ją rozpozna.
 
@@ -179,6 +190,7 @@ Najłatwiej otworzyć menu Start i wpisać „retro”. W folderze **Retro** (Ws
 
 - **Retro** – RomM w przeglądarce
 - **Ustawienia Retro** – zmiana folderu z grami, VPN i konta ScreenScraper
+- **Pliki Retro** – menedżer plików folderu z grami (punkt 7a)
 - **Pobierz okładki Retro** – okładki i opisy gier dla RomM i ES-DE
 - **Kopia zapasowa Retro** – kopia biblioteki RomM (robi się też sama codziennie o 20:00)
 - **Przywróć kopię Retro** – przywraca ostatnią kopię (trzeba wpisać `TAK`)
