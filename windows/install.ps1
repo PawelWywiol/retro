@@ -168,6 +168,7 @@ function Install-EsDe($Vars) {
     Write-Host 'Pobieranie RetroArch...'
     Expand-Download -Url "https://buildbot.libretro.com/stable/$RetroArchVersion/windows/x86_64/RetroArch.7z" -Name 'retroarch.7z' -Destination (Join-Path $esde 'Emulators')
     Set-Line -File "$retroarch\retroarch.cfg" -Match '^video_fullscreen\s*=' -Line 'video_fullscreen = "true"'
+    Set-Line -File "$retroarch\retroarch.cfg" -Match '^input_quit_gamepad_combo\s*=' -Line 'input_quit_gamepad_combo = "4"'
   }
   foreach ($core in $Cores) {
     if (-not (Test-Path "$retroarch\cores\${core}_libretro.dll")) {
