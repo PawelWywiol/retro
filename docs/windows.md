@@ -36,10 +36,10 @@ The script:
 
 1. checks the requirements
 2. enables WSL and Virtual Machine Platform, installs WSL and Docker Desktop, sets Docker Desktop to start at sign-in without opening its window, then exits with code 3010 and continues after the restart (RunOnce)
-3. creates `.env` with generated secrets, `COMPOSE_FILE=compose.yml;compose.windows.yml` and the folder tree
+3. creates `.env` with generated secrets, `COMPOSE_FILE=compose.yml;compose.windows.yml`, `MINERVA_ALLOWED_HOSTS=<computer name>,<computer name>.local` when empty, and the folder tree
 4. removes inbound Block rules for Docker Desktop and allows `ROMM_PORT` and `MINERVA_PORT` on private networks
 5. starts the stack, with minerva-helper when `WIREGUARD_PRIVATE_KEY` is set in `.env`
-6. puts a `Retro` shortcut on the desktop and opens RomM
+6. puts `Retro` (RomM) and, with a WireGuard key, `Minerva` shortcuts on the desktop and opens RomM
 
 Run it again after editing `.env`: existing secrets are kept. The log is in `app\install.log`. Uninstalling stops the containers and keeps `library\`, `data\` and the database volumes.
 
@@ -71,4 +71,4 @@ Start menu → Retro → _Pobierz okładki_ runs `windows\scrape.ps1`: the `skys
 
 - `compose.windows.yml` keeps MariaDB and Redis in named volumes: bind mounts from NTFS are much slower for small files. They live inside Docker Desktop's disk, so resetting or uninstalling Docker Desktop deletes them.
 - The library stays on NTFS, so ES-DE on the same PC can use it.
-- RomM is reachable from other devices only when Windows marks the network as private.
+- RomM and minerva-helper are reachable from other devices only when Windows marks the network as private. minerva-helper rejects host names outside `MINERVA_ALLOWED_HOSTS`; IP addresses always work.

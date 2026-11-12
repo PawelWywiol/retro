@@ -116,6 +116,8 @@ function Initialize-Env {
     (Get-Content (Join-Path $AppDir '.env.example')) -replace '^LIBRARY_PATH=.*', "LIBRARY_PATH=$rootPath/library" -replace '^DATA_PATH=.*', "DATA_PATH=$rootPath/data"
   }
   $lines = $lines | ForEach-Object { if ($_ -match '^(DB_PASSWD|DB_ROOT_PASSWD|ROMM_AUTH_SECRET_KEY)=$') { "$($_)$(New-Secret)" } else { $_ } }
+  $pc = $env:COMPUTERNAME.ToLower()
+  $lines = $lines -replace '^MINERVA_ALLOWED_HOSTS=$', "MINERVA_ALLOWED_HOSTS=$pc,$pc.local"
   if (-not ($lines -match '^COMPOSE_FILE=')) { $lines += 'COMPOSE_FILE=compose.yml;compose.windows.yml' }
   if ($EsDe) { $lines = @($lines -notmatch '^ESDE_GAMELISTS=') + "ESDE_GAMELISTS=$($Root -replace '\\', '/')/ES-DE/ES-DE/gamelists" }
   if ($Settings -and (Test-Path $Settings)) {
@@ -219,6 +221,11 @@ function Register-Backup {
 function New-Shortcut($Vars) {
   $desktop = [Environment]::GetFolderPath('Desktop')
   [IO.File]::WriteAllLines("$desktop\Retro.url", [string[]]@('[InternetShortcut]', "URL=http://localhost:$($Vars.ROMM_PORT)"))
+  if ($Vars.WIREGUARD_PRIVATE_KEY) {
+    [IO.File]::WriteAllLines("$desktop\Minerva.url", [string[]]@('[InternetShortcut]', "URL=http://localhost:$($Vars.MINERVA_PORT)"))
+  } else {
+    Remove-Item "$desktop\Minerva.url" -ErrorAction SilentlyContinue
+  }
 }
 
 function Open-Romm($Vars) {
